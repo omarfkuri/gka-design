@@ -1,0 +1,23 @@
+{
+  "name": "gka-design",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "ts-node entry"
+  },
+  "dependencies": {
+    "@dunes/builder": "^0.9.6",
+    "@dunes/comps": "^0.9.4",
+    "@dunes/fire": "^0.9",
+    "@dunes/router": "^0.9",
+    "@dunes/sys": "^0.9",
+    "@dunes/tag": "^0.9",
+    "@dunes/wrap": "^0.9",
+    "@rollup/plugin-node-resolve": "^15.2.1",
+    "@types/less": "^3.0.4",
+    "firebase": "^10.4.0",
+    "less": "^4.2.0"
+  }
+}

@@ -1,0 +1,38 @@
+@side: 200px;
+
+#app {
+	flex-direction: row;
+}
+
+.sidebar_wrapper {
+	position: fixed;
+	inset: 0 auto 0 0;
+	background: canvas;
+	width: @side;
+
+	display: flex;
+	flex-direction: column;
+	padding: .5em;
+}
+
+.sidebar_container {
+	width: 100%;
+	
+	display: flex;
+	flex-direction: column;
+}
+
+.main {
+	display: flex;
+	margin-left: @side;
+	flex-direction: column;
+	padding: 1em;
+	width: 100%;
+}
+
+.list_wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5em;
+
+}
