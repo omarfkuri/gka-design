@@ -15,7 +15,7 @@ Fire.init({
 
 Fire.useAuth();
 Fire.useStore();
-// Fire.useStorage();
+Fire.useStorage();
 
 
 const router = new Router({
@@ -44,5 +44,10 @@ const router = new Router({
 });
 
 Fire.auth.self.authStateReady()
-.then(() => router.start())
+.then(() => {
+
+	// console.log(Fire.auth.self.currentUser)
+	return router.start();
+
+})
 .catch(alert)

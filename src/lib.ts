@@ -1,9 +1,6 @@
 export { Router, Anchor, View } from "@dunes/router";
-export { Elem } from "@dunes/tag";
-export { Fire } from "@dunes/fire/lib/Fire";
-export { FireStore } from "@dunes/fire/lib/FireStore";
-export { FireAuth } from "@dunes/fire/lib/FireAuth";
-// export { FireStorage } from "@dunes/fire/lib/FireStorage";
+export { Elem, Comp } from "@dunes/tag";
+export { Fire, FireAuth, FireStorage, FireStore } from "@dunes/fire";
 
 
 /**
@@ -23,7 +20,8 @@ declare global {
 	const {Fire}: typeof import("@dunes/fire");
 	
 	type Elem = import("@dunes/tag").Elem;
-	const {Elem}: typeof import("@dunes/tag");
+	type Comp = import("@dunes/tag").Comp;
+	const {Elem, Comp}: typeof import("@dunes/tag");
 	const pages: string[]
 	const hash: null | string
 

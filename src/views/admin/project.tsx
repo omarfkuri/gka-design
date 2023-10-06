@@ -4,10 +4,11 @@ import type { Comp } from "@dunes/tag";
 import styles from "src/style/views/admin/project.m.less";
 import { SectionPreview } from "src/comps/SectionPreview";
 import { AdminView } from "src/comps/AdminView";
+import { Uploader } from "src/comps/Uploader";
 
 export default class ProjectView extends View {
 
-	willShow() {
+	override willShow() {
 		if (!Fire.auth.self.currentUser) {
 			return {to: location.origin + "/admin/login"}
 		}
@@ -78,13 +79,14 @@ export default class ProjectView extends View {
 							}
 							e.target.disabled = false
 						}}
-					>Add Section</button>
+					>Add Section</button>,
+					<Uploader/>
 				]}>
 					<div cl={styles.list_wrapper}>
 						{view.#sections
 							? view.#sections.length
 							? view.#sections.map(section => 
-								<SectionPreview section={section}/>
+								<SectionPreview section={section} projID={view.#project?.id!}/>
 							)
 							: <div>No sections</div>
 							: <div>Loading...</div>
@@ -96,12 +98,12 @@ export default class ProjectView extends View {
 			: <AdminView>Loading...</AdminView>
 	}
 
-	async hasShown() {
+	override async hasShown() {
 		let re = false;
 		if (!this.#project) {
 			const [,,,id] = location.pathname.split("/");
 			const proj = await Fire.store.getDoc<Project>(
-				Fire.store.doc("projects", id)
+				Fire.store.doc("projects", id!)
 			);
 			if (!proj) {
 				return {to: "/admin"}

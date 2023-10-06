@@ -5,7 +5,7 @@ import formStyles from "src/style/comp/Form.m.less";
 
 export default class Login extends View {
 
-	willShow() {
+	override willShow() {
 		if (Fire.auth.self.currentUser) {
 			return {to: location.origin + "/admin"}
 		}

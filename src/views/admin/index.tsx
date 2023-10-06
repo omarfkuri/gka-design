@@ -10,7 +10,7 @@ import { AdminView } from "src/comps/AdminView";
 
 export default class Admin extends View {
 
-	willShow() {
+	override willShow() {
 		if (!Fire.auth.self.currentUser) {
 			return {to: location.origin + "/admin/login"}
 		}
@@ -100,7 +100,7 @@ export default class Admin extends View {
 	#unsub?: Unsubscribe
 	#projects?: Doc<Project>[]
 
-	async hasShown() {
+	override async hasShown() {
 		if (this.#unsub) {
 			return;
 		}
@@ -113,7 +113,7 @@ export default class Admin extends View {
 		)
 	}
 
-	willDestroy() {
+	override willDestroy() {
 		this.#unsub?.();
 	}
 }
