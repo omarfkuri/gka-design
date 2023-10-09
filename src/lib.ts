@@ -19,8 +19,8 @@ declare global {
 	
 	const {Fire}: typeof import("@dunes/fire");
 	
-	type Elem = import("@dunes/tag").Elem;
-	type Comp = import("@dunes/tag").Comp;
+	type Elem<T extends TagName = any> = import("@dunes/tag").Elem<T>;
+	type Comp<T extends obj = any> = import("@dunes/tag").Comp<T>;
 	const {Elem, Comp}: typeof import("@dunes/tag");
 	const pages: string[]
 	const hash: null | string

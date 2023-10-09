@@ -5,6 +5,7 @@ import styles from "src/style/views/admin/project.m.less";
 import { SectionPreview } from "src/comps/SectionPreview";
 import { AdminView } from "src/comps/AdminView";
 import { Uploader } from "src/comps/Uploader";
+import { NameDesc } from "src/comps/NameDesc";
 
 export default class ProjectView extends View {
 
@@ -16,46 +17,17 @@ export default class ProjectView extends View {
 	
 	#project?: Doc<Project>
 	#sections?: Doc<Section>[]
-	#name?: string
-	#desc?: string
 
 	content({view}: {view: ProjectView}, comp: Comp<{}>) {
 		
 		return view.#project
 			? (
 				<AdminView side={[
-					<div cl={styles.name_container}>
-						<h5 
-							onkeydown={e => {
-								view.#name = e.target.innerText;
-							}}
-							contenteditable>{view.#project.name}
-						</h5>
-						<p
-							onkeydown={e => {
-								view.#desc = e.target.innerText;
-							}}
-							contenteditable>{view.#project.description}
-						</p>
-						<button
-							onclick={async () => {
-								try {
-									await Fire.store.updateDoc<Project>(
-										Fire.store.doc("projects", view.#project!.id),
-										{
-											name: view.#name,
-											description: view.#desc
-										}
-									)
-									view.#project = undefined;
-									await router.reloadCurrent();
-								}
-								catch(err) {
-									alert(err)
-								}
-							}}>Update
-						</button>
-					</div>,
+					<NameDesc 
+						name={view.#project!.name}
+						description={view.#project!.description}
+						ref={Fire.store.doc<Project>("projects", view.#project!.id)}
+					/>,
 					<button
 						onclick={async (e) => {
 							e.target.disabled = true
@@ -109,8 +81,6 @@ export default class ProjectView extends View {
 				return {to: "/admin"}
 			}
 			this.#project	= proj;
-			this.#name = proj.name
-			this.#desc = proj.description
 			re = true;
 		}
 

@@ -3,22 +3,34 @@
 	.card();
 }
 
+.images {
 
-.image {
-	&_list {
+	&_wrapper {
 		display: flex;
 		flex-direction: column;
 	}
 
-	&_wrapper {
+	&_summary {
+		&_wrapper {
+			display: flex;
+			justify-content: space-between;
+		}
+		&_start {
+			display: flex;
+		}
+		&_end {
+			display: flex;
+			gap: 0.5em;
+		}
+	}
+
+	&_list {
 		display: flex;
+		flex-direction: column;
+		padding-block: 0.3em;
+		gap: 0.3em;
 	}
 
-	&_container {
-
-	}
-
-	&_tools {
-
-	}
 }
+
+

@@ -6,6 +6,7 @@ import less from "less"
 import resolve from "@rollup/plugin-node-resolve";
 
 const [,,command] = process.argv;
+const port = 3047;
 
 const remExports: Replacer = [/export *{ .+ };? *\n*/, ""];
 const remDollar: Replacer[] = [
@@ -133,7 +134,7 @@ const latest = {
 }
 
 await builder.serve({
-	port: 3042,
+	port,
 	api(req, res) {
 	  if (req.url.endsWith("/reload")) {
 	  	res.send(latest)
@@ -144,7 +145,7 @@ await builder.serve({
 });
 
 console.log()
-line.cyan("Live at 3042");
+line.cyan(`Live at ${port}`);
 
 const watcher = builder.watch({
 	async onActionStart(e) {

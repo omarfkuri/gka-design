@@ -2,7 +2,7 @@
 import "src/globals.less"
 import { reloader } from "./fn/reload";
 
-reloader(500);
+reloader(1500);
 
 Fire.init({
   apiKey: "AIzaSyCgTe4lBpCwESvNAosnegbn0SD9W9EzQFo",
