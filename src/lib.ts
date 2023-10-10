@@ -2,16 +2,6 @@ export { Router, Anchor, View } from "@dunes/router";
 export { Elem, Comp } from "@dunes/tag";
 export { Fire, FireAuth, FireStorage, FireStore } from "@dunes/fire";
 
-
-/**
- * 
- * test: 
- * 	Make project with firestore
- *	Import auth and storage 
- * 
- * */
-
-
 declare global {
 	
 	type View = import("@dunes/router").View;

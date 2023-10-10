@@ -44,10 +44,39 @@ const router = new Router({
 });
 
 Fire.auth.self.authStateReady()
+.then(start)
 .then(() => {
 
-	// console.log(Fire.auth.self.currentUser)
-	return router.start();
+	console.log("Started app!")
 
 })
 .catch(alert)
+
+async function start() {
+
+
+	try {
+		const {href} = location;
+		await router.start();
+		const obj = JSON.stringify(await router.print())
+		const res = await fetch("/print-ui", {
+			body: JSON.stringify({
+				pages: encodeURIComponent(JSON.stringify(obj))
+			}),
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+		if (!res.ok) {
+			throw res.body
+		}
+		console.log("Built pages.")
+		await router.go(href);
+	}
+	catch(err) {
+		alert(err);
+	}
+
+
+}

@@ -7,6 +7,7 @@ import { Form, FormStyles } from "@dunes/comps";
 import formStyles from "src/style/comp/Form.m.less";
 import { ProjectPreview } from "src/comps/ProjectPreview";
 import { AdminView } from "src/comps/AdminView";
+import { WaitButton } from "src/comps/WaitBtn";
 
 export default class Admin extends View {
 
@@ -70,7 +71,7 @@ export default class Admin extends View {
 						}
 					]}
 				/>,
-				<button onclick={async () => {
+				<WaitButton onclick={async () => {
 					if (confirm("Log out")) {
 						try {
 							await Fire.auth.self.signOut();
@@ -80,7 +81,7 @@ export default class Admin extends View {
 							alert(error);
 						}
 					}
-				}}>Logout</button>
+				}}>Logout</WaitButton>
 			]}>
 				<div cl={styles.list_wrapper}>{
 					view.#projects
