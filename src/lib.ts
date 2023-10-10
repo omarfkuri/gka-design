@@ -12,7 +12,7 @@ declare global {
 	type Elem<T extends TagName = any> = import("@dunes/tag").Elem<T>;
 	type Comp<T extends obj = any> = import("@dunes/tag").Comp<T>;
 	const {Elem, Comp}: typeof import("@dunes/tag");
-	const pages: string[]
+	const paths: string[]
 	const hash: null | string
 
 

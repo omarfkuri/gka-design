@@ -21,8 +21,11 @@
     "@dunes/wrap": "^0.9",
     "@dunes/wrap-plug": "^0.9.69",
     "@rollup/plugin-node-resolve": "^15.2.1",
+    "@types/express": "^4.17.18",
     "@types/jsdom": "^21.1.3",
     "@types/less": "^3.0.4",
+    "@types/node": "^20.8.4",
+    "express": "^4.18.2",
     "firebase": "^10.4.0",
     "jsdom": "^22.1.0",
     "less": "^4.2.0"
