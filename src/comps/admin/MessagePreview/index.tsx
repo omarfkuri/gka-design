@@ -13,9 +13,9 @@ export class MessagePreview extends Comp<{
 		);
 		return (
 			<div cl={styles.wrapper}>
-				<h3>{this.props.message.email}</h3>
-				<p>{this.props.message.content}</p>
-				<div>
+				<div cl={styles.email}>{this.props.message.email}</div>
+				<div cl={styles.content}>{this.props.message.content}</div>
+				<div cl={styles.actions}>
 					<WaitButton onclick={async () => {
 						if (!confirm("Delete message?")) return;
 						try {

@@ -1,4 +1,5 @@
 
+import { WaitButton } from "src/comps/common/WaitBtn";
 import styles from "./style.m.less"
 
 export function Wrapper({desc, side}: {
@@ -15,6 +16,17 @@ export function Wrapper({desc, side}: {
 						<Anchor href="/admin">Projects</Anchor>
 						<Anchor href="/admin/messages">Messages</Anchor>
 					</div>
+					<WaitButton onclick={async () => {
+						if (confirm("Log out")) {
+							try {
+								await Fire.auth.self.signOut();
+								await router.reloadCurrent();
+							}
+							catch(error) {
+								alert(error);
+							}
+						}
+					}}>Logout</WaitButton>
 				</div>
 				{side && <div cl={styles.sidebar_container}>{side}</div>}
 			</div>

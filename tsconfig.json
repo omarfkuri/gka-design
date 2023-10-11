@@ -7,6 +7,10 @@
     },
     "ignoreDiagnostics": [/*2503*/]
   },
+  "exclude": [
+    "./src/assets",
+    "./src/style",
+  ],
   "compilerOptions": {
     "target": "ES2022",
     "module": "ES2022", 

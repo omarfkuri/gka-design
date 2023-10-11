@@ -1,0 +1,25 @@
+
+.wrapper {
+	height: 100%;
+	width: 100%;
+}
+
+.slide {
+	&_wrapper {
+		height: 100%;
+		position: relative;
+	}
+	&_cover {
+		height: 100%;
+		object-fit: cover;
+	}
+
+	&_title {
+		.title(@h1);
+		color: white;
+		text-shadow: 0 0 0.2em #000A;
+		position: absolute;
+		inset: auto auto 0 0;
+		padding: 0.5em;
+	}
+}

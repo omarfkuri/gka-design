@@ -1,11 +1,13 @@
 
 export const Accordion: Component<Elements.Div & {
 	open?: boolean
+	openText?: string
+	closeText?: string
 	onToggle?(action: "close" | "open"): Prom<void>
 	show: (btn: Elem<"button">) => any
 	desc: any
 }> = (
-	({open, show, desc, onToggle, ...props}, comp) => (
+	({open, show, desc, onToggle, openText="Open", closeText="Close", ...props}, comp) => (
 		<div {...props}>
 			{show((
 				<button
@@ -18,7 +20,7 @@ export const Accordion: Component<Elements.Div & {
 						}
 						comp.re({open: !open})
 					}}
-				>{open ? "Close" : "Open"}</button>
+				>{open ? closeText : openText}</button>
 			) as unknown as Elem<"button">)}
 			{open && desc}
 		</div>

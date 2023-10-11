@@ -4,7 +4,10 @@ import styles from "./style.m.less"
 export function TopBar() {
 	return (
 		<div cl={styles.wrapper}>
-			<Anchor href="/">GKA</Anchor>
+			<img 
+				cl={`${styles.logo_container} click`}
+				onclick={() => router.go(location.origin+"/")}
+				src="/logo.svg" draggable={false}/>
 		</div>
 	)
 }

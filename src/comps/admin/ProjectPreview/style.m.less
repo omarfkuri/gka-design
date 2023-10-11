@@ -1,4 +1,24 @@
 
 .wrapper {
 	.card();
+
+	.info {
+
+		&_wrapper {
+			.col();
+			padding-block: 0.4em;
+		}
+
+		._title(@h2);
+
+		&_description {
+			font-style: italic;
+		}
+
+	}
+
+	.actions {
+		gap: 0.4em;
+		.row(flex-end, center);
+	}
 }

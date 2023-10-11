@@ -1,15 +1,13 @@
-
 import { Doc } from "@dunes/fire";
 import { Unsubscribe } from "firebase/firestore";
 import { ProjectPreview } from "src/comps/home/ProjectPreview";
-import { TopBar } from "src/comps/home/TopBar";
+import { Wrapper } from "src/comps/home/Wrapper";
 import styles from "src/style/views/project/list.m.less";
 
 export default class ProjectIndex extends View {
 	content({view}: {view: ProjectIndex}, comp: Comp<{}>) {
 		return (
-			<div id="app">
-				<TopBar/>
+			<Wrapper>
 				<div cl={styles.list_wrapper}>
 					{
 						view.#projects
@@ -23,7 +21,7 @@ export default class ProjectIndex extends View {
 						: <div>Loading...</div>
 					}
 				</div>
-				</div>
+			</Wrapper>
 		)
 	}
 

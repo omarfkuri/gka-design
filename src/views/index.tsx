@@ -1,20 +1,24 @@
 
+import { Form, FormStyles } from "@dunes/comps";
 import type { CollectionReference } from "firebase/firestore";
-import { TopBar } from "src/comps/home/TopBar";
+import { HomeProjects } from "src/comps/home/HomeProjects";
+import { Wrapper } from "src/comps/home/Wrapper";
+import formStyles from "src/style/comp/Form.m.less";
 import styles from "src/style/views/home.m.less";
 
 export default class Home extends View {
 	content() {
 		const messagesRef = Fire.data.col<Message>("messages");
 		return (
-			<div id="app">
-				<TopBar/>
+			<Wrapper>
 				<section id="hero" cl={`${styles.section_wrapper} ${styles.hero_wrapper}`}>
-					<div cl={styles.hero_logo}>GKA Design</div>
+					<div cl={styles.hero_logo}>
+						<img src="/logo.svg" draggable={false}/>
+					</div>
 					<div cl={styles.hero_links}>
 						{Fire.auth.self.currentUser && <Anchor href="/admin">Admin</Anchor>}
 						<a href="#about" cl={styles.hero_link}>About</a>
-						<a href="#project" cl={styles.hero_link}>Project</a>
+						<a href="#projects" cl={styles.hero_link}>Projects</a>
 						<a href="#contact" cl={styles.hero_link}>Contact</a>
 					</div>
 				</section>
@@ -31,19 +35,24 @@ export default class Home extends View {
 				</section>
 				<section id="projects" cl={`${styles.section_wrapper} ${styles.projects_wrapper}`}>
 					<div cl={styles.projects_title}>Projects</div>
+					<HomeProjects/>
 					<div cl={styles.projects_info}>
-						<a href="/project/list" cl={styles.projects_link}>View</a>
+						<a href="/project/list" cl={styles.projects_link}>View All</a>
 					</div>
 				</section>
 				<section id="contact" cl={`${styles.section_wrapper} ${styles.contact_wrapper}`}>
 					<div cl={styles.contact_title}>Contact</div>
-					<div cl={styles.contact_info}>
-						<a cl={styles.contact_link}>Email</a>
-						<a cl={styles.contact_link}>55 5050 2038</a>
+					<div cl={styles.contact_body_wrapper}>
+						<div cl={styles.contact_info_wrapper}>
+							<a cl={styles.contact_info_link}>Email</a>
+							<a cl={styles.contact_info_link}>55 5050 2038</a>
+						</div>
+						<div cl={styles.contact_message_wrapper}>
+							<MessageForm messagesRef={messagesRef}/>
+						</div>
 					</div>
-					<MessageForm messagesRef={messagesRef}/>
 				</section>
-			</div>
+			</Wrapper>
 		)
 	}
 }
@@ -65,7 +74,8 @@ const MessageForm: Component<{
 			</div>
 		)
 		: (
-			<form
+			<Form 
+				titleText="Send Message"
 				onsubmit={async e => {
 					e.preventDefault();
 
@@ -87,24 +97,29 @@ const MessageForm: Component<{
 						alert(error)
 					}
 				}}
-			>
-				<div>Send us a message</div>
-				<div>
-					Email{" "}
-					<input 
-						oninput={e => email = e.target.value}
-						type="email" required
-					/>
-				</div>
-				<div>
-					Message{" "}
-					<textarea 
-						oninput={e => content = e.target.value}
-						required
-					/>
-				</div>
-				<button>Send</button>
-			</form>
+				inputs={[
+					{
+						title: "Email",
+						input: (
+							<input 
+								oninput={e => email = e.target.value}
+								type="email" required
+							/>
+						)
+					},
+					{
+						title: "Message",
+						input: (
+							<textarea 
+								oninput={e => content = e.target.value}
+								required
+							/>
+						)
+					}
+				]}
+				css={formStyles as FormStyles}
+				submitText="Send"
+			/>
 		)
 
 	)

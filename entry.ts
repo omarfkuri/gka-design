@@ -3,20 +3,30 @@ import { jsxPreset, tsPreset } from '@dunes/bab';
 
 import localResolve from '@dunes/wrap-plug';
 import nodeResolve from '@rollup/plugin-node-resolve';
-import { line } from "@dunes/sys";
+import { c } from "@dunes/sys";
 import less from "less"
 import express from "express"
+import http from 'http';
+import { Server } from "socket.io";
+
 import { join, resolve } from "path";
 
 const builder = new SiteBuilder({
   out: "public",
+
+  assets: {
+    source: "assets",
+  },
+
   css: {
   	match: /\.less$/,
   	ext: "less",
   	file: "global.css",
 		async transform(source) {
 			const {css} = await less.render(
-				'@import "src/style/pre.less";' + "\n" + source
+				'@import "node_modules/@dunes/styles/color.less";\n' +
+        '@import "node_modules/@dunes/styles/layout.less";\n' +
+        '@import "src/style/pre.less";\n' + source
 			);
 		  return css;
 		},
@@ -58,12 +68,12 @@ const builder = new SiteBuilder({
 })
 
 try {
-	line.gray("Building")
+	c.gray.log("Building")
   const result = await builder.build({
     clean: true
   });
-  line.cyan(
-  	"Built in " + line.blue.text(String(result.took)) + "ms"
+  c.cyan.log(
+  	"Built in " + c.blue(String(result.took)) + "ms"
   );
 }
 catch(error) {
@@ -71,37 +81,55 @@ catch(error) {
   process.exit(0);
 }
 
+
+const latest = {
+  ui: 0,
+  css: 0
+}
 const app = express();
 
 app.get("/*", (req, res) => {
-	if (req.url.match(/\.\w+$/)) {
-		res.sendFile(resolve(join("public", req.url)))
-	}
-	else {
-		res.sendFile(resolve(join("public", "index.html")))	
-	}
+  if (req.url.match(/\.\w+$/)) {
+    res.sendFile(resolve(join("public", req.url)))
+  }
+  else {
+    res.sendFile(resolve(join("public", "index.html"))) 
+  }
 })
+const server = http.createServer(app);
+const io = new Server(server);
 
-await new Promise(res => {
-	const server = app.listen(3420, () => res(server))
-})
-line.gray("Listening at " + 3420);
+io.on("connection", socket => socket.emit("start", latest))
+
+await new Promise<void>(res => server.listen(3420, res))
+c.gray.log("Listening at " + 3420);
 
 
-line.gray("watching...")
+c.gray.log("watching...")
 await builder.watch({
 
   onActionStart(e) {
-    line.gray("Building " + e.name);
+    c.gray.log("Building " + e.name + (
+      e.files
+      ? ` for ${e.files.size} file${e.files.size===1?"":"s"}`
+      : ""
+    ));
   },
   onActionFinish(e) {
-    line.green("Built " + e.name + " in " + e.took + "ms");
+    c.green.log("Built " + e.name + " in " + e.took + "ms");
+    if (e.style) {
+      latest.css = Date.now()
+    }
+    else {
+      latest.ui = Date.now()
+    }
+    io.emit("change", latest)
   },
 
   onActionFailure({error}) {
-    line.red("THERE WAS AN ERROR");
-    line.gray(String(error));
-    line.red("THERE WAS AN ERROR");
+    c.red.log("THERE WAS AN ERROR");
+    c.gray.warn(String(error));
+    c.red.log("===");
   },
 
 });

@@ -5,6 +5,8 @@ import { Wrapper } from "src/comps/admin/Wrapper";
 import { Uploader } from "src/comps/admin/Uploader";
 import { NameDesc } from "src/comps/admin/NameDesc";
 import { AdminSectionPreview } from "src/comps/admin/SectionPreview";
+import { WaitButton } from "src/comps/common/WaitBtn";
+import { alertError } from "src/fn/alertError";
 
 export default class ProjectView extends View {
 
@@ -25,32 +27,26 @@ export default class ProjectView extends View {
 				<NameDesc 
 					name={view.#project!.name}
 					description={view.#project!.description}
-					ref={Fire.data.doc<Project>("projects", view.#project!.id)}
+					ref={Fire.data.doc<Project>("projects", view.#project.id)}
 				/>,
-					<button
-						onclick={async (e) => {
-							e.target.disabled = true
-							try {
-								await Fire.data.add<Section>(
-									Fire.data.col(`projects/${view.#project!.id}/sections`),
-									{
-										name: "My Section",
-										ordinal: 0,
-										images: [],
-										description: "Lorem Ipsum Dolor",
-										createdAt: Fire.data.stamp(),
-										updatedAt: Fire.data.stamp(),
-									}
-								);
-								view.#sections = undefined;
-								await router.reloadCurrent();
+				<Anchor href={`/project/${view.#project.id}`}>View</Anchor>,
+				<WaitButton
+					onclick={alertError(async () => {
+						await Fire.data.add<Section>(
+							Fire.data.col(`projects/${view.#project!.id}/sections`),
+							{
+								name: "My Section",
+								ordinal: 0,
+								images: [],
+								description: "Lorem Ipsum Dolor",
+								createdAt: Fire.data.stamp(),
+								updatedAt: Fire.data.stamp(),
 							}
-							catch(error) {
-								alert(error);
-							}
-							e.target.disabled = false
-						}}
-					>Add Section</button>,
+						);
+						view.#sections = undefined;
+						await router.reloadCurrent();
+					})}
+				>Add Section</WaitButton>,
 				<Uploader/>
 			]}>
 				<div cl={styles.list_wrapper}>

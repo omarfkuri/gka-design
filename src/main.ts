@@ -1,8 +1,8 @@
 
 import "src/globals.less"
-// import { reloader } from "src/fn/reload";
+import { reloader } from "src/fn/reload";
 
-// reloader(1500);
+
 Fire.init({
   apiKey: "AIzaSyCgTe4lBpCwESvNAosnegbn0SD9W9EzQFo",
   authDomain: "gka-design.firebaseapp.com",
@@ -41,11 +41,10 @@ const router = new Router({
 	}
 });
 
-Fire.auth.self.authStateReady()
+reloader()
+.then(() => Fire.auth.self.authStateReady())
 .then(()=> router.start())
 .then(() => {
-
 	console.log("Started app!")
-
 })
 .catch(alert)

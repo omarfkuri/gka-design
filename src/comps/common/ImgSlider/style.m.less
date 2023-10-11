@@ -1,18 +1,20 @@
 
 .wrapper {
-	display: flex;
-	flex-direction: column;
+	.col();
+	height: 100%;
 }
 
 .images_wrapper {
-	display: flex;
+	.row(flex-start, center);
+	gap: 0.5em;
 	width: 100%;
 	overflow-x: auto;
 	scroll-snap-type: x mandatory;
 
+
 	> * {
-		scroll-snap-align: center;
-		min-width: 100%;
+		scroll-snap-align: start;
+		min-width: 90%;
 	}
 }
 
@@ -24,8 +26,9 @@
 	}
 
 	&_prev, &_next {
-		padding: 0.4em;
 		background: none;
+		padding: 0.4em 0;
+		font-size: 1.1em;
 		border: none;
 	}
 }

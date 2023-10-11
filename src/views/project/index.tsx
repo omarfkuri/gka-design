@@ -1,9 +1,9 @@
-
 import type { Doc } from "@dunes/fire";
 import type { Comp } from "@dunes/tag";
 import styles from "src/style/views/project/index.m.less";
 import { SectionPreview } from "src/comps/home/SectionPreview";
-import { TopBar } from "src/comps/home/TopBar";
+import { Wrapper } from "src/comps/home/Wrapper";
+import { ShowArray } from "src/comps/common/ShowArray";
 
 export default class ProjectView extends View {
 	
@@ -15,29 +15,22 @@ export default class ProjectView extends View {
 		return (
 			view.#project
 			? (
-				<div id="app">
-					<TopBar/>
-					<div cl={styles.title}>
-						{view.#project.name}
-					</div>
-					<div cl={styles.list_wrapper}>
-						{view.#sections
-							? view.#sections.length
-								? view.#sections.map(section => 
-									<SectionPreview section={section} projID={view.#project!.id!}/>
-								)
-								: <div>No sections</div>
-							: <div>Loading...</div>
-
-						}
-					</div>
-				</div>
+				<Wrapper>
+					<div cl={styles.title}>{view.#project.name}</div>
+					<ShowArray
+						cl={styles.list_wrapper}
+						arr={view.#sections}
+						map={sections => sections.map(section => 
+							<SectionPreview 
+								section={section} 
+								projID={view.#project!.id!}/>
+						)}
+						load={<div>No sections</div>}
+						empty={<div>Loading...</div>}
+					/>
+				</Wrapper>
 			)
-			: (
-				<div id="app">
-					Loading...
-				</div>
-			)
+			: <Wrapper>Loading...</Wrapper>
 		)
 	}
 

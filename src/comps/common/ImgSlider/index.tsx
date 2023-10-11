@@ -12,7 +12,7 @@ export function ImgSlider<T>({images, map}: {
 		const car = document.getElementById(id)!;
 		const slider = car.querySelector(`.${styles.images_wrapper}`)!;
 		const {scrollWidth} = slider.firstElementChild!;
-		slider.scrollBy({left: scrollWidth * i, behavior: "smooth"})
+		slider.scrollBy({left: (scrollWidth * (i * 0.8)) , behavior: "smooth"})
 	}
 
 	return (

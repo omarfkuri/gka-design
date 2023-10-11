@@ -1,17 +1,22 @@
+
 * {
 	box-sizing: border-box;
 }
 
+html {
+	height: 100%;
+}
+
 body {
 	margin: 0;
+	font-family: -apple-system, 'Helvetica Neue', sans-serif;
 }
 
 #app {
 	margin-inline: auto;
 	max-width: 1200px;
-	width: 100%;
 	height: 100%;
-	display: flex;
+	width: 100%;
 }
 
 .click {
@@ -25,4 +30,32 @@ img {
 button {
 	width: min-content;
 	white-space: nowrap;
+}
+
+textarea, input {
+	width: 100%;
+	border: none;
+	box-shadow: inset 0 0 0.2em #9999;
+	padding: 0.2em;
+	font-size: 1em;
+}
+
+input[type="file"] {
+	font-size: 0.65em;
+}
+
+textarea {
+	resize: vertical;
+	min-height: 10vh;
+	height: 10vh;
+	max-height: 30vh;
+}
+
+a {
+	color: text;
+	text-decoration-color: #9999;
+}
+
+button, .click {
+	cursor: pointer;
 }

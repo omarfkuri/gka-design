@@ -9,7 +9,7 @@ export function html(e: HTMLFunctionEvent): string {
 				<meta charset="UTF-8"/>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 				<meta name="color-scheme" content="light dark"/>
-
+				<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 				{e.styles.map(style => 
 					<link rel="stylesheet" href={style}/>
 				)}

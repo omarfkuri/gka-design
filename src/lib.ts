@@ -19,6 +19,7 @@ declare global {
 	type Project = {
 		name: string
 		description: string
+		cover: string
 	}
 
 	type Message = {
@@ -33,4 +34,10 @@ declare global {
 		description: string
 		images: string[]
 	}
+
+	type HomePost = {
+		postID: string
+		order: number
+	}
+
 }

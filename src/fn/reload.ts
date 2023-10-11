@@ -1,46 +1,51 @@
-export async function reloader(delay: number, warn = true) {
+declare const {io}: typeof import("socket.io-client");
+type ReloadBody = {css: number, ui: number}
 
-	const latest = {
-		css: 0,
-		ui: 0
-	};
+export async function reloader() {
+	const socket = io();
 
-	while (true) {
-		try {
-			const res = await fetch("/reload");
-			const body: {css: number, ui: number} = await res.json();
-			if (latest.ui < body.ui) {
-				if (latest.ui > 0) {
-					reloadUi();
-				}
-				latest.ui = body.ui;
-			}
+	let latest: ReloadBody = {css: 0, ui: 0}
+	await new Promise<void>(res => {
+		socket.on("start", (l: ReloadBody) => {
+			latest = l;
+			res();
+		})
+	})
 
-			else if (latest.css < body.css) {
-				if (latest.css > 0) {
-					reloadCss();
-				}
-				latest.css = body.css;
-			}
-			await new Promise(res => setTimeout(res, delay));
+	socket.on("disconnect", () => {
+		if (confirm("Connection lost. Reload?")){
+			location.reload();
 		}
-		catch(err) {
-			if (!warn || !confirm("Could not connect to server. Try again?")) {
-				break
-			}
+		else {
+			socket.close();
 		}
-	}
-
-	function reloadUi() {
-		location.reload();
-	}
-
-	function reloadCss() {
-		for (const link of document.querySelectorAll("link")) {
-			if (link.rel == "stylesheet") {
-				const copy = link.cloneNode(true);
-				link.replaceWith(copy);
+	})
+	socket.on("change", (body: ReloadBody) => {
+		if (latest.ui < body.ui) {
+			if (latest.ui > 0) {
+				reloadUi();
 			}
+			latest.ui = body.ui;
+		}
+
+		else if (latest.css < body.css) {
+			if (latest.css > 0) {
+				reloadCss();
+			}
+			latest.css = body.css;
+		}
+	});
+}
+
+function reloadUi() {
+	location.reload();
+}
+
+function reloadCss() {
+	for (const link of document.querySelectorAll("link")) {
+		if (link.rel == "stylesheet") {
+			const copy = link.cloneNode(true);
+			link.replaceWith(copy);
 		}
 	}
 }

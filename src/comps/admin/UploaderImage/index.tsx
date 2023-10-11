@@ -2,6 +2,7 @@
 import type { Img } from "../Uploader"
 import { WaitButton } from "../../common/WaitBtn"
 import styles from "./style.m.less"
+import { CopyButton } from "src/comps/common/CopyBtn"
 
 export class UploaderImage extends Comp<{img: Img}> {
 
@@ -12,19 +13,9 @@ export class UploaderImage extends Comp<{img: Img}> {
 	  			<img src={this.props.img.url} draggable={false}/>
 	  		</div>
 	  		<div cl={styles.tools}>
-	  			<WaitButton
-	  				onclick={async () => {
-	  					try {
-	  						await navigator.clipboard.writeText(
-	  							`general/${this.props.img.src}`
-	  						)
-	  						alert("Copied!")
-	  					}
-	  					catch(error) {
-	  						alert(error);
-	  					}
-	  				}}
-	  			>Copy</WaitButton>
+	  			<CopyButton copyText={`general/${this.props.img.src}`}>
+	  				Copy
+	  			</CopyButton>
 	  			<WaitButton
 	  				onclick={async () => {
 	  					if (!confirm("Delete?")) return;
@@ -33,7 +24,7 @@ export class UploaderImage extends Comp<{img: Img}> {
 
 	  					try {
 	  						await Fire.storage.rem(ref);
-	  						// delete
+	  						this.root?.remove();
 	  					}
 	  					catch(error) {
 	  						alert(error);

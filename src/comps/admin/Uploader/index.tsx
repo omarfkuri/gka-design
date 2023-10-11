@@ -1,8 +1,10 @@
 
-import { Form, FormStyles } from "@dunes/comps";
-import formStyles from "../../../style/comp/Form.m.less";
 import styles from "./style.m.less"
 import { UploaderImage } from "../UploaderImage";
+import { Accordion } from "src/comps/common/Accordion";
+import { WaitButton } from "src/comps/common/WaitBtn";
+import { ShowArray } from "src/comps/common/ShowArray";
+import { alertError } from "src/fn/alertError";
 
 export type Img = {
 	url: string
@@ -11,81 +13,64 @@ export type Img = {
 
 export class Uploader extends Comp {
 
-	#files?: FileList
-
 	protected override produce(): JSX.Element {
 	  return (
 			<div cl={styles.wrapper}>
-				<div id="uploadingContainer">
-					<div id="uploadingName"></div>
-					<progress max="100" value="0"
-						id="uploadingProgress"></progress>
-				</div>
+				<Accordion cl={styles.list_wrapper} show={btn => (
+					<div cl={styles.form_wrapper}>
+						<div cl={styles.form_title}>Images</div>
+						<input
+							required
+							multiple
+							type="file"
+							onchange={alertError(async e => {
+								if (!e.target.files || !e.target.files.length) {
+									alert("Please choose a file")
+									return;
+								}
 
-				<div cl={styles.list_wrapper}>{
-					this.#images
-					? (
-						this.#images.length
-						? this.#images.map(img => <UploaderImage img={img}/>)
-						: <div>No Images</div>
-					)
-					: <div>Loading...</div>
-				}</div>
-				<div>
-					<button onclick={async (e) => {
-						e.target.disabled = true;
-						await this.#advancePage(-1);
-						e.target.disabled = false;
-					}}>Prev</button>
-					<button onclick={async (e) => {
-						e.target.disabled = true;
-						await this.#advancePage(1);
-						e.target.disabled = false;
-					}}>Next</button>
-				</div>
-				<Form
-					css={formStyles as FormStyles}
-					titleText="Upload"
-					submitText="Add"
-					onsubmit={(e) => {
+								const name = document.getElementById("uploadingName")!;
+								const prog = document.getElementById("uploadingProgress") as HTMLProgressElement;
 
-						if (!this.#files || !this.#files.length) {
-							alert("Please choose a file")
-							return;
-						}
-
-						const name = document.getElementById("uploadingName")!;
-						const prog = document.getElementById("uploadingProgress") as HTMLProgressElement;
-
-						e.preventDefault()
-						Fire.storage.uploadAll(this.#files, "general", {
-							onFileChange(file) {
-								name.innerText = file.name;
-							},
-							onChange(progress) {
-								console.log(progress)
-								prog.value = progress;
-							},
-						})
-						.then(() => this.re())
-						.catch(alert);
-					}}
-					inputs={[
-						{
-							title: "Select Images",
-							input: (
-								<input
-									required
-									multiple
-									type="file"
-									onchange={e =>
-										e.target.files && (this.#files = e.target.files)
+								e.preventDefault()
+								await Fire.storage.uploadAll(e.target.files, "general", {
+									onFileChange(file) {
+										name.innerText = file.name;
+									},
+									onChange(progress) {
+										console.log(progress)
+										prog.value = progress;
 									}
-								/>
-							)
-						}
-					]}
-				/>
+								})
+								this.re();
+							})}
+						/>
+						{btn}
+					</div>
+				)}>
+					<div id="uploadingContainer">
+						<div id="uploadingName"></div>
+						<progress max="100" value="0"
+							id="uploadingProgress"></progress>
+					</div>
+					<ShowArray
+						cl={styles.list_container}
+						arr={this.#images}
+						map={images => images.map(
+							img => <UploaderImage img={img}/>
+						)}
+						load={<div>Loading...</div>}
+						empty={<div>No Images</div>}
+					/>
+					<div>
+						<WaitButton onclick={() => this.#advancePage(-1)}>
+							Prev
+						</WaitButton>
+						<WaitButton onclick={() => this.#advancePage( 1)}>
+							Next
+						</WaitButton>
+					</div>
+				</Accordion>
 			</div>
 		)
 	}
@@ -128,7 +113,7 @@ export class Uploader extends Comp {
 
 	async #setImages(pageToken?: string) {
 		const pages = await Fire.storage.listPages(Fire.storage.path("general"), {
-			maxResults: 7,
+			maxResults: 24,
 			pageToken
 		})
 		this.#images = await Promise.all(pages.items.map(
