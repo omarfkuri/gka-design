@@ -3,14 +3,30 @@
 	flex-direction: column;
 }
 
-.hero_wrapper {
+.section_wrapper {
 	display: flex;
+	flex-direction: column;
+	padding: 1.2em;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
 }
 
-.hero_links {
-	display: flex;
-}
+.hero {
+	&_wrapper {
+		
+	}
 
-.hero_link {
-	display: flex;
+	&_logo {
+		font-size: 2.2em;
+		font-weight: bold;
+	}
+	&_links {
+		display: flex;
+		gap: .5em;
+	}
+
+	&_link {
+		display: flex;
+	}
 }

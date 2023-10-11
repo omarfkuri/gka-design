@@ -1,6 +1,6 @@
 
 import type { Img } from "../Uploader"
-import { WaitButton } from "../WaitBtn"
+import { WaitButton } from "../../common/WaitBtn"
 import styles from "./style.m.less"
 
 export class UploaderImage extends Comp<{img: Img}> {

@@ -7,6 +7,7 @@ export function ProjectPreview({project}: {project: Doc<Project>}) {
 		<div cl={styles.wrapper}>
 			<h5>{project.name}</h5>
 			<p>{project.description}</p>
+			<Anchor href={`/project/${project.id}`}>View</Anchor>
 			<Anchor href={`/admin/project/${project.id}`}>Edit</Anchor>
 		</div>
 	)

@@ -1,5 +1,5 @@
 
-import { WaitButton } from "../WaitBtn"
+import { WaitButton } from "../../common/WaitBtn"
 import styles from "./style.m.less"
 
 export class SectionImage extends Comp<{

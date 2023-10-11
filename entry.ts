@@ -95,12 +95,13 @@ await builder.watch({
     line.gray("Building " + e.name);
   },
   onActionFinish(e) {
-    line.gray("Built " + e.name + " in " + e.took + "ms");
+    line.green("Built " + e.name + " in " + e.took + "ms");
   },
 
   onActionFailure({error}) {
+    line.red("THERE WAS AN ERROR");
     line.gray(String(error));
-    line.gray("THERE WAS AN ERROR");
+    line.red("THERE WAS AN ERROR");
   },
 
 });

@@ -1,6 +1,6 @@
 import type { DocumentReference } from "firebase/firestore"
 import styles from "./style.m.less"
-import { WaitButton } from "../WaitBtn"
+import { WaitButton } from "../../common/WaitBtn"
 
 export class NameDesc<T extends {
 	name: string

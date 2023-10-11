@@ -1,6 +1,6 @@
 
 import { Form, FormStyles } from "@dunes/comps";
-import formStyles from "../../style/comp/Form.m.less";
+import formStyles from "../../../style/comp/Form.m.less";
 import styles from "./style.m.less"
 import { UploaderImage } from "../UploaderImage";
 

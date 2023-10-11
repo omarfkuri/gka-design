@@ -1,12 +1,12 @@
 
 import type { Doc } from "@dunes/fire"
 import styles from "./style.m.less"
-import { WaitButton } from "../WaitBtn"
+import { WaitButton } from "../../common/WaitBtn"
 import { NameDesc } from "../NameDesc"
-import { Accordion } from "../Accordion"
+import { Accordion } from "../../common/Accordion"
 import { SectionImage } from "../SectionImage"
 
-export class SectionPreview extends Comp<{
+export class AdminSectionPreview extends Comp<{
 	section: Doc<Section>,
 	projID: string
 }> {
@@ -20,13 +20,27 @@ export class SectionPreview extends Comp<{
 	}
 
 	override produce() {
+		const ref = Fire.store.doc<Section>(`projects/${this.props.projID}/sections`, this.props.section.id);
 		return (
 			<div cl={styles.wrapper}>
 				<NameDesc
 					name={this.props.section.name}
 					description={this.props.section.description}
-					ref={Fire.store.doc<Section>(`projects/${this.props.projID}/sections`, this.props.section.id)}
+					ref={ref}
 				/>
+				<div cl={styles.controls_wrapper}>
+					<WaitButton onclick={async() => {
+						if (!confirm("Delete?")) return;
+
+						try {
+							await Fire.store.remDoc(ref);
+						}
+						catch(error) {
+							alert(error);
+						}
+
+					}}>Delete</WaitButton>
+				</div>
 				<Accordion cl={styles.images_wrapper} show={
 					(btn) => (
 						<div cl={styles.images_summary_wrapper}>

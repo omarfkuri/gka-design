@@ -2,10 +2,10 @@
 import type { Doc } from "@dunes/fire";
 import type { Comp } from "@dunes/tag";
 import styles from "src/style/views/admin/project.m.less";
-import { SectionPreview } from "src/comps/SectionPreview";
-import { AdminView } from "src/comps/AdminView";
-import { Uploader } from "src/comps/Uploader";
-import { NameDesc } from "src/comps/NameDesc";
+import { Wrapper } from "src/comps/admin/Wrapper";
+import { Uploader } from "src/comps/admin/Uploader";
+import { NameDesc } from "src/comps/admin/NameDesc";
+import { AdminSectionPreview } from "src/comps/admin/SectionPreview";
 
 export default class ProjectView extends View {
 
@@ -20,14 +20,14 @@ export default class ProjectView extends View {
 
 	content({view}: {view: ProjectView}, comp: Comp<{}>) {
 		
-		return view.#project
-			? (
-				<AdminView side={[
-					<NameDesc 
-						name={view.#project!.name}
-						description={view.#project!.description}
-						ref={Fire.store.doc<Project>("projects", view.#project!.id)}
-					/>,
+		return (
+			view.#project ?
+			<Wrapper side={[
+				<NameDesc 
+					name={view.#project!.name}
+					description={view.#project!.description}
+					ref={Fire.store.doc<Project>("projects", view.#project!.id)}
+				/>,
 					<button
 						onclick={async (e) => {
 							e.target.disabled = true
@@ -52,22 +52,22 @@ export default class ProjectView extends View {
 							e.target.disabled = false
 						}}
 					>Add Section</button>,
-					<Uploader/>
-				]}>
-					<div cl={styles.list_wrapper}>
-						{view.#sections
-							? view.#sections.length
+				<Uploader/>
+			]}>
+				<div cl={styles.list_wrapper}>
+					{view.#sections
+						? view.#sections.length
 							? view.#sections.map(section => 
-								<SectionPreview section={section} projID={view.#project?.id!}/>
+								<AdminSectionPreview section={section} projID={view.#project!.id!}/>
 							)
 							: <div>No sections</div>
-							: <div>Loading...</div>
+						: <div>Loading...</div>
 
-						}
-					</div>
-				</AdminView>
-			)
-			: <AdminView>Loading...</AdminView>
+					}
+				</div>
+			</Wrapper>
+			: <Wrapper>Loading...</Wrapper>
+		)
 	}
 
 	override async hasShown() {

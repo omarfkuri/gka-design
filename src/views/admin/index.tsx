@@ -5,9 +5,9 @@ import { Unsubscribe } from "firebase/firestore";
 import styles from "src/style/views/admin/index.m.less";
 import { Form, FormStyles } from "@dunes/comps";
 import formStyles from "src/style/comp/Form.m.less";
-import { ProjectPreview } from "src/comps/ProjectPreview";
-import { AdminView } from "src/comps/AdminView";
-import { WaitButton } from "src/comps/WaitBtn";
+import { Wrapper } from "src/comps/admin/Wrapper";
+import { WaitButton } from "src/comps/common/WaitBtn";
+import { ProjectPreview } from "src/comps/admin/ProjectPreview";
 
 export default class Admin extends View {
 
@@ -23,7 +23,7 @@ export default class Admin extends View {
 	content({view}: {view: Admin}, comp: Comp<{}>) {
 		
 		return (
-			<AdminView side={[
+			<Wrapper side={[
 				<Form
 					css={formStyles as FormStyles}
 					titleText="New Project"
@@ -94,7 +94,7 @@ export default class Admin extends View {
 					)
 					: <div>Loading...</div>
 				}</div>
-			</AdminView>
+			</Wrapper>
 		)
 	}
 

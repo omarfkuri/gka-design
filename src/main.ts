@@ -27,9 +27,12 @@ const router = new Router({
 	root: "#app",
 	rootStyles: "#styles",
 	async direct(url) {
-
 		if (url.pathname === "/admin/project") {
 			url.pathname = "/"
+		}
+
+		else if (url.pathname !== "/project/list" && url.pathname.startsWith("/project/")) {
+			url.pathname = "/project"
 		}
 
 		else if (url.pathname.startsWith("/admin/project/")) {

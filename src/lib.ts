@@ -21,6 +21,12 @@ declare global {
 		description: string
 	}
 
+	type Message = {
+		email: string
+		content: string
+		read: boolean
+	}
+
 	type Section = {
 		ordinal: number
 		name: string

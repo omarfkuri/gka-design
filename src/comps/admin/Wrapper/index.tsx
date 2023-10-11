@@ -1,7 +1,7 @@
 
 import styles from "./style.m.less"
 
-export function AdminView({desc, side}: {
+export function Wrapper({desc, side}: {
 	desc: any
 	side?: any
 }) {
@@ -11,6 +11,7 @@ export function AdminView({desc, side}: {
 				<div cl={styles.sidebar_info}>
 					<div cl={styles.sidebar_info_title}>Admin</div>
 					<div cl={styles.sidebar_info_links}>
+						<Anchor href="/">Home</Anchor>
 						<Anchor href="/admin">Projects</Anchor>
 						<Anchor href="/admin/messages">Messages</Anchor>
 					</div>

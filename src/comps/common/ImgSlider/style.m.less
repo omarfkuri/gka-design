@@ -1,0 +1,31 @@
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+}
+
+.images_wrapper {
+	display: flex;
+	width: 100%;
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+
+	> * {
+		scroll-snap-align: center;
+		min-width: 100%;
+	}
+}
+
+.controls {
+
+	&_wrapper {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	&_prev, &_next {
+		padding: 0.4em;
+		background: none;
+		border: none;
+	}
+}
