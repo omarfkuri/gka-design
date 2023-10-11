@@ -1,6 +1,5 @@
 
 import type { Doc } from "@dunes/fire";
-import type { Comp } from "@dunes/tag";
 import styles from "src/style/views/admin/project.m.less";
 import { Wrapper } from "src/comps/admin/Wrapper";
 import { Uploader } from "src/comps/admin/Uploader";
@@ -18,7 +17,7 @@ export default class ProjectView extends View {
 	#project?: Doc<Project>
 	#sections?: Doc<Section>[]
 
-	content({view}: {view: ProjectView}, comp: Comp<{}>) {
+	content({view}: {view: ProjectView}) {
 		
 		return (
 			view.#project ?
@@ -26,21 +25,21 @@ export default class ProjectView extends View {
 				<NameDesc 
 					name={view.#project!.name}
 					description={view.#project!.description}
-					ref={Fire.store.doc<Project>("projects", view.#project!.id)}
+					ref={Fire.data.doc<Project>("projects", view.#project!.id)}
 				/>,
 					<button
 						onclick={async (e) => {
 							e.target.disabled = true
 							try {
-								await Fire.store.addDoc<Section>(
-									Fire.store.col(`projects/${view.#project!.id}/sections`),
+								await Fire.data.add<Section>(
+									Fire.data.col(`projects/${view.#project!.id}/sections`),
 									{
 										name: "My Section",
 										ordinal: 0,
 										images: [],
 										description: "Lorem Ipsum Dolor",
-										createdAt: Fire.store.stamp(),
-										updatedAt: Fire.store.stamp(),
+										createdAt: Fire.data.stamp(),
+										updatedAt: Fire.data.stamp(),
 									}
 								);
 								view.#sections = undefined;
@@ -74,8 +73,8 @@ export default class ProjectView extends View {
 		let re = false;
 		if (!this.#project) {
 			const [,,,id] = location.pathname.split("/");
-			const proj = await Fire.store.getDoc<Project>(
-				Fire.store.doc("projects", id!)
+			const proj = await Fire.data.get<Project>(
+				Fire.data.doc("projects", id!)
 			);
 			if (!proj) {
 				return {to: "/admin"}
@@ -86,8 +85,8 @@ export default class ProjectView extends View {
 
 		if (!this.#sections) {
 
-			this.#sections = await Fire.store.getCollection<Section>(
-				Fire.store.col(`projects/${this.#project.id}/sections`)
+			this.#sections = await Fire.data.getCol<Section>(
+				Fire.data.col(`projects/${this.#project.id}/sections`)
 			)
 			re = true;
 		}

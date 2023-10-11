@@ -30,7 +30,7 @@ export class NameDesc<T extends {
 				<WaitButton
 					onclick={async () => {
 						try {
-							await Fire.store.updateDoc<T>(
+							await Fire.data.update<T>(
 								this.props.ref,
 								{
 									name: this.props.name,

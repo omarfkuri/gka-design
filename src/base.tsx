@@ -11,10 +11,10 @@ export function html(e: HTMLFunctionEvent): string {
 				<meta name="color-scheme" content="light dark"/>
 
 				{e.styles.map(style => 
-					<link rel="stylesheet" href={`${style}`}/>
+					<link rel="stylesheet" href={style}/>
 				)}
 				{e.scripts.map(script => 
-					<script src={`${script}`} defer/>
+					<script src={script} defer/>
 				)}
 				<link rel="stylesheet" id="styles"/>
 				<title>Test</title>

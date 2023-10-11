@@ -1,6 +1,6 @@
 export { Router, Anchor, View } from "@dunes/router";
 export { Elem, Comp } from "@dunes/tag";
-export { Fire, FireAuth, FireStorage, FireStore } from "@dunes/fire";
+export { Fire, FireAuth, FireStorage, FireData } from "@dunes/fire";
 
 declare global {
 	

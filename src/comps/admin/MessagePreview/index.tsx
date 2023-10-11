@@ -8,7 +8,7 @@ export class MessagePreview extends Comp<{
 }> {
 
 	override produce() {
-		const messageRef = Fire.store.doc<Message>(
+		const messageRef = Fire.data.doc<Message>(
 			"messages", this.props.message.id
 		);
 		return (
@@ -19,7 +19,7 @@ export class MessagePreview extends Comp<{
 					<WaitButton onclick={async () => {
 						if (!confirm("Delete message?")) return;
 						try {
-							await Fire.store.remDoc(messageRef);
+							await Fire.data.remove(messageRef);
 							this.root!.remove();
 						}
 						catch(error) {
@@ -30,7 +30,7 @@ export class MessagePreview extends Comp<{
 					</WaitButton>
 					<WaitButton onclick={async () => {
 						try {
-							await Fire.store.updateDoc(messageRef, {
+							await Fire.data.update(messageRef, {
 								read: true
 							});
 						}

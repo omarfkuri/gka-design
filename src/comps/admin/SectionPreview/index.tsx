@@ -12,15 +12,15 @@ export class AdminSectionPreview extends Comp<{
 }> {
 	
 	async #replaceSection() {
-		this.props.section = (await Fire.store.getDoc<Section>(
-			Fire.store.doc(`projects/${this.props.projID}/sections`,
+		this.props.section = (await Fire.data.get<Section>(
+			Fire.data.doc(`projects/${this.props.projID}/sections`,
 				this.props.section.id
 			)
 		))!
 	}
 
 	override produce() {
-		const ref = Fire.store.doc<Section>(`projects/${this.props.projID}/sections`, this.props.section.id);
+		const ref = Fire.data.doc<Section>(`projects/${this.props.projID}/sections`, this.props.section.id);
 		return (
 			<div cl={styles.wrapper}>
 				<NameDesc
@@ -33,7 +33,7 @@ export class AdminSectionPreview extends Comp<{
 						if (!confirm("Delete?")) return;
 
 						try {
-							await Fire.store.remDoc(ref);
+							await Fire.data.remove(ref);
 						}
 						catch(error) {
 							alert(error);
@@ -53,10 +53,10 @@ export class AdminSectionPreview extends Comp<{
 									if (!link) return;
 
 									try {
-										await Fire.store.updateDoc<Section>(
-											Fire.store.doc(`projects/${this.props.projID}/sections`, this.props.section.id),
+										await Fire.data.update<Section>(
+											Fire.data.doc(`projects/${this.props.projID}/sections`, this.props.section.id),
 											{
-												images: Fire.store.field.arrayUnion(link)
+												images: Fire.data.field.arrayUnion(link)
 											}
 										)
 										await this.#replaceSection();

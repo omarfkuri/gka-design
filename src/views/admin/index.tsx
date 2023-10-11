@@ -31,13 +31,13 @@ export default class Admin extends View {
 					onsubmit={async (e) => {
 						e.preventDefault()
 						try {
-							await Fire.store.setDoc<Project>(
-								Fire.store.doc("projects", view.#name.replace(/[^\w]+/g, "")),
+							await Fire.data.set<Project>(
+								Fire.data.doc("projects", view.#name.replace(/[^\w]+/g, "")),
 								{
 									name: view.#name,
 									description: view.#description,
-									createdAt: Fire.store.stamp(),
-									updatedAt: Fire.store.stamp(),
+									createdAt: Fire.data.stamp(),
+									updatedAt: Fire.data.stamp(),
 								}
 							);
 							view.#name = "";
@@ -106,8 +106,8 @@ export default class Admin extends View {
 			return;
 		}
 
-		this.#unsub = Fire.store.onDocs<Project>(
-			Fire.store.col("projects"), projects => {
+		this.#unsub = Fire.data.onSnap<Project>(
+			Fire.data.col("projects"), projects => {
 				this.#projects = projects;
 				this.comp!.re();
 			}

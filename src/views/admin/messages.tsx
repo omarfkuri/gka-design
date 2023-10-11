@@ -38,8 +38,8 @@ export default class MessageView extends View {
 
 		if (!this.#messages) {
 
-			this.#messages = await Fire.store.getCollection<Message>(
-				Fire.store.col(`messages`)
+			this.#messages = await Fire.data.getCol<Message>(
+				Fire.data.col(`messages`)
 			)
 			this.comp!.re();
 		}

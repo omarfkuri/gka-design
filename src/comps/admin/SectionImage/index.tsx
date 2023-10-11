@@ -19,10 +19,10 @@ export class SectionImage extends Comp<{
 						if (!confirm("Remove?")) return;
 
 						try {
-							await Fire.store.updateDoc<Section>(
-								Fire.store.doc(`projects/${this.props.projID}/sections`, this.props.sectionID),
+							await Fire.data.update<Section>(
+								Fire.data.doc(`projects/${this.props.projID}/sections`, this.props.sectionID),
 								{
-									images: Fire.store.field.arrayRemove(this.props.src)
+									images: Fire.data.field.arrayRemove(this.props.src)
 								}
 							)
 							this.re();

@@ -13,7 +13,7 @@ Fire.init({
 })
 
 Fire.useAuth();
-Fire.useStore();
+Fire.useDatabase();
 Fire.useStorage();
 
 const router = new Router({

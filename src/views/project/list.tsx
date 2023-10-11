@@ -35,8 +35,8 @@ export default class ProjectIndex extends View {
 			return;
 		}
 
-		this.#unsub = Fire.store.onDocs<Project>(
-			Fire.store.col("projects"), projects => {
+		this.#unsub = Fire.data.onSnap<Project>(
+			Fire.data.col("projects"), projects => {
 				this.#projects = projects;
 				this.comp!.re();
 			}

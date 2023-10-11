@@ -45,8 +45,8 @@ export default class ProjectView extends View {
 		let re = false;
 		if (!this.#project) {
 			const [,,id] = location.pathname.split("/");
-			const proj = await Fire.store.getDoc<Project>(
-				Fire.store.doc("projects", id!)
+			const proj = await Fire.data.get<Project>(
+				Fire.data.doc("projects", id!)
 			);
 			if (!proj) {
 				return {to: "/admin"}
@@ -57,8 +57,8 @@ export default class ProjectView extends View {
 
 		if (!this.#sections) {
 
-			this.#sections = await Fire.store.getCollection<Section>(
-				Fire.store.col(`projects/${this.#project.id}/sections`)
+			this.#sections = await Fire.data.getCol<Section>(
+				Fire.data.col(`projects/${this.#project.id}/sections`)
 			)
 			re = true;
 		}

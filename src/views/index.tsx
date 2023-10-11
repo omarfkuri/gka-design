@@ -5,7 +5,7 @@ import styles from "src/style/views/home.m.less";
 
 export default class Home extends View {
 	content() {
-		const messagesRef = Fire.store.col<Message>("messages");
+		const messagesRef = Fire.data.col<Message>("messages");
 		return (
 			<div id="app">
 				<TopBar/>
@@ -70,11 +70,11 @@ const MessageForm: Component<{
 					e.preventDefault();
 
 					try {
-						await Fire.store.addDoc(messagesRef, {
+						await Fire.data.add(messagesRef, {
 							email, 
 							content, 
-							createdAt: Fire.store.stamp(),
-							updatedAt: Fire.store.stamp(),
+							createdAt: Fire.data.stamp(),
+							updatedAt: Fire.data.stamp(),
 							read: false
 						})
 						comp.re({
