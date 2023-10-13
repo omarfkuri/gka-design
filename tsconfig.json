@@ -14,11 +14,11 @@
   "compilerOptions": {
     "target": "ES2022",
     "module": "ES2022", 
-    "baseUrl": ".",
+    "moduleResolution": "Bundler", 
     
+    "baseUrl": ".",
     "jsx": "react",
     "jsxFactory": "Elem.create",
-    "moduleResolution": "node", 
     "esModuleInterop": true,  
     "forceConsistentCasingInFileNames": true,  
     "strict": true,  

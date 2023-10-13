@@ -2,3 +2,32 @@
 .wrapper {
 	.card();
 }
+
+.hero {
+	.row(space-between, end);
+
+	.info {
+		.col();
+		
+		._title(@h1);
+
+		.description {
+			font-size: @main;
+		}
+	}
+
+	
+	.image {
+		max-width: 60%;
+
+		img {
+
+			object-fit: cover;
+			height: 30vh;
+		}
+	}
+}
+.controls {
+	width: 100%;
+	.row(flex-end, center);
+}

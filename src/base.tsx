@@ -20,6 +20,7 @@ export function html(e: HTMLFunctionEvent): string {
 				{e.styles.map(style => <link rel="stylesheet" href={style}/>)}
 				{e.scripts.map(script => <script src={script} defer/>)}
 				<link rel="stylesheet" id="styles" href={localCssPath}/>
+				<link rel="icon" type="image/png" href="/favicon.png"/>
 				<title>GKA Design</title>
 			</head>
 			<body>

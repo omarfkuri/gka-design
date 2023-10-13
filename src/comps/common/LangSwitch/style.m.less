@@ -1,0 +1,23 @@
+.lang_btn {
+	color: red;
+	height: 3em;
+	width:  3em;
+	border-radius: 100%;
+	border: 1px solid text;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+
+	&[lang="en"] {
+		background-image: url(
+			"/usa.jpg"
+		);
+		background-position: 30% center;
+	}
+
+	&[lang="es"] {
+		background-image: url(
+			"/mexico.jpg"
+		);
+	}
+}

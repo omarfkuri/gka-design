@@ -13,13 +13,13 @@ declare global {
 	type FormStyles = import("@dunes/comps").FormStyles
 	
 	const {Fire}: typeof import("@dunes/fire");
-	const ph: import("src/fn/Words").Phrases<
+	const ph: import("@dunes/phrase").Phrases<
+		import("src/fn/lang").Languages,
 		typeof import("src/fn/lang").lang
 	>;
-	const Phrases: typeof import("src/fn/Words").Phrases
 	
 	type Elem<T extends TagName = any> = import("@dunes/tag").Elem<T>;
-	type Comp<T extends obj = any> = import("@dunes/tag").Comp<T>;
+	type Comp<T extends {[key: string]: any} = any> = import("@dunes/tag").Comp<T>;
 	const {Elem, Comp}: typeof import("@dunes/tag");
 
 	const {include}: typeof import("@dunes/wrap-plug");

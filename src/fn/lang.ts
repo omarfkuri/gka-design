@@ -1,4 +1,6 @@
-import { LangDecl } from "./Words";
+import { LangDecl } from "@dunes/phrase/lib/types";
+
+export type Languages = "en" | "es"
 
 export const lang = {
 
@@ -99,10 +101,11 @@ export const lang = {
 
 	mission: {
 		en: (
-			"Somos una empresa dedicada a diseñar y desarrollar espacios cómodos, "
-			+ "funcionales y modernos. Nos especializamos en proyectos de cualquier "
-			+ "índole desde arquitectura residencial hasta comercial. "
-			+ "Nuestra misión es lograr la máxima satisfacción de nuestros clientes."
+			"We are a company dedicated to designing and developing "
+			+ "modern, functional and comfortable spaces. We specialize "
+			+ "in projects of any kind of architecture: from residential to "
+			+ "comercial. Our mission is achieving the maximum "
+			+ "satisfaction for our clients."
 		),
 		es: (
 			"Somos una empresa dedicada a diseñar y desarrollar espacios cómodos, "
@@ -113,4 +116,4 @@ export const lang = {
 	},
 
 
-} satisfies LangDecl
+} satisfies LangDecl<Languages>

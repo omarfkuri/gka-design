@@ -1,8 +1,20 @@
 
 .wrapper {
-	display: flex;
-	justify-content: space-between;
+	.row(space-between, end);
 	padding: 0.5em @inline;
+	background: canvas;
+	box-shadow: 0 0 5px #9999;
+	margin-bottom: 0.5em;
+}
+
+.start {
+	gap: 1.2em;
+	.row(center);
+
+	button {
+		width:  22px;
+		height: 22px;
+	}
 }
 
 .logo_container {
