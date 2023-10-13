@@ -8,7 +8,8 @@ import { SectionImage } from "../SectionImage"
 
 export class AdminSectionPreview extends Comp<{
 	section: Doc<Section>,
-	projID: string
+	projID: string,
+	selected: Set<string>
 }> {
 	
 	async #replaceSection() {
@@ -23,17 +24,27 @@ export class AdminSectionPreview extends Comp<{
 		const ref = Fire.data.doc<Section>(`projects/${this.props.projID}/sections`, this.props.section.id);
 		return (
 			<div cl={styles.wrapper}>
-				<NameDesc
-					name={this.props.section.name}
-					description={this.props.section.description}
-					ref={ref}
-				/>
+				<Accordion
+					show={btn => (
+						<div>
+							<div>Info</div>
+							{btn}
+						</div>
+					)}
+				>
+					<NameDesc
+						name={this.props.section.name}
+						description={this.props.section.description}
+						ref={ref}
+					/>
+				</Accordion>
 				<div cl={styles.controls_wrapper}>
 					<WaitButton onclick={async() => {
 						if (!confirm("Delete?")) return;
 
 						try {
 							await Fire.data.remove(ref);
+							this.root!.remove();
 						}
 						catch(error) {
 							alert(error);
@@ -48,6 +59,21 @@ export class AdminSectionPreview extends Comp<{
 								Images ({String(this.props.section.images.length)})
 							</div>
 							<div cl={styles.images_summary_end}>
+								<WaitButton onclick={async () => {
+									try {
+										for (const link of this.props.selected) {
+											const section = Fire.data.doc<Section>(`projects/${this.props.projID}/sections`, this.props.section.id);
+											await Fire.data.update(section, {
+												images: Fire.data.field.arrayUnion(link)
+											})
+										}
+										await this.#replaceSection();
+										this.re();
+									}
+									catch (error) {
+										alert(error);
+									}
+								}}>Add Selection</WaitButton>
 								<WaitButton onclick={async () => {
 									const link = prompt("What image?");
 									if (!link) return;

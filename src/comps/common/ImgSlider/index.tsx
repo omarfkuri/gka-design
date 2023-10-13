@@ -2,6 +2,9 @@ import { word } from "@dunes/random"
 
 import styles from "./style.m.less"
 
+const arrow_left = include(import("@dunes/tools"), ({UNICODE}) => UNICODE.arrow.left.simple)
+const arrow_right = include(import("@dunes/tools"), ({UNICODE}) => UNICODE.arrow.right.simple)
+
 export function ImgSlider<T>({images, map}: {
 	images: T[]
 	map: (t: T) => JSX.Element
@@ -21,8 +24,12 @@ export function ImgSlider<T>({images, map}: {
 				{images.map(map)}
 			</div>
 			<div cl={styles.controls_wrapper}>
-				<button cl={styles.controls_prev} onclick={()=>goTo(-1)}>Prev</button>
-				<button cl={styles.controls_next} onclick={()=>goTo( 1)}>Next</button>
+				<button cl={styles.controls_prev} onclick={()=>goTo(-1)}>{
+					arrow_left
+				}</button>
+				<button cl={styles.controls_next} onclick={()=>goTo( 1)}>{
+					arrow_right
+				}</button>
 			</div>
 		</div>
 	)

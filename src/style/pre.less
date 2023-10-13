@@ -9,17 +9,21 @@
 	background: canvas;
 }
 
-.title(@size: 1.4em) {
+.title(@size: 1.4em, @trf: none) {
 	font-size: @size;
 	font-weight: bold;
+	text-transform: @trf;
 }
 
-._title(@size: 1.4em) {
+._title(@size: 1.4em, @trf: none) {
 	&_title {
 		font-size: @size;
+		text-transform: @trf;
 		font-weight: bold;
 	}
 }
+
+@mega: 2.0em;
 
 @h1: 1.6em;
 @h2: 1.4em;
@@ -27,5 +31,25 @@
 @h4: 1.1em;
 @h5: 1.0em;
 
+@big: 1.4em;
 @main: 1.0em;
 @small: 0.8em;
+
+@bg: 1, 2, 3;
+
+@block: 9em;
+@inline: 1.2em;
+
+.bgi(@l, @d) {
+	background-image: @l;
+	@media (prefers-color-scheme: dark) {
+		background-image: @d;
+	}
+}
+
+.bgi(@l1, @l2, @d1, @d2) {
+	background-image: @l1, @l2;
+	@media (prefers-color-scheme: dark) {
+		background-image: @d1, @d2;
+	}
+}

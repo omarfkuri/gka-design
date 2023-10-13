@@ -12,6 +12,7 @@ import { BannerSelect } from "src/comps/admin/BannerSelect";
 import { Uploader } from "src/comps/admin/Uploader";
 import { Accordion } from "src/comps/common/Accordion";
 import { ShowArray } from "src/comps/common/ShowArray";
+import { WaitButton } from "src/comps/common/WaitBtn";
 
 export default class Admin extends View {
 
@@ -92,8 +93,15 @@ export default class Admin extends View {
 						]}
 					/>
 				</Accordion>,
+				<WaitButton
+					onclick={async () => {
+						console.log(await router.print())
+					}}
+				>
+					Print
+				</WaitButton>,
 				<BannerSelect/>,
-				<Uploader/>
+				<Uploader selected={new Set()}/>
 			]}>
 				<ShowArray
 					arr={view.#projects}

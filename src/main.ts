@@ -1,7 +1,11 @@
 
 import "src/globals.less"
-import { reloader } from "src/fn/reload";
 
+import { Language, Phrases } from "src/fn/Words";
+import { reloader } from "src/fn/reload";
+import { lang } from "src/fn/lang";
+
+export const ph = new Phrases(lang);
 
 Fire.init({
   apiKey: "AIzaSyCgTe4lBpCwESvNAosnegbn0SD9W9EzQFo",

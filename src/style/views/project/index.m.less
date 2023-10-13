@@ -5,11 +5,16 @@
 	gap: 0;
 }
 .title {
-	.title(@h1);
-	padding: 0.3em;
+	&_wrapper {
+		padding-inline: @inline;
+
+	}
+
+	._title(@h1);
 }
 .list_wrapper {
 	display: flex;
 	flex-direction: column;
 	padding-bottom: 26vh;
+	padding: 0 @inline (@block/2);
 }

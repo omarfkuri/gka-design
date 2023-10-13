@@ -10,13 +10,15 @@ export default class ProjectView extends View {
 	#project?: Doc<Project>
 	#sections?: Doc<Section>[]
 
-	content({view}: {view: ProjectView}, comp: Comp<{}>) {
+	content({view}: {view: ProjectView}) {
 		
 		return (
 			view.#project
 			? (
-				<Wrapper>
-					<div cl={styles.title}>{view.#project.name}</div>
+				<Wrapper projects>
+					<div cl={styles.title_wrapper}>
+						<div cl={styles.title_title}>{view.#project.name}</div>
+					</div>
 					<ShowArray
 						cl={styles.list_wrapper}
 						arr={view.#sections}

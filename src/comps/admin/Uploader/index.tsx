@@ -11,14 +11,39 @@ export type Img = {
 	src: string
 }
 
-export class Uploader extends Comp {
+export class Uploader extends Comp<{open?: boolean, selected: Set<string>}> {
 
 	protected override produce(): JSX.Element {
 	  return (
 			<div cl={styles.wrapper}>
-				<Accordion cl={styles.list_wrapper} show={btn => (
+				<Accordion 
+					open={this.props.open} 
+					onToggle={t => {this.props.open = t === "open"}} 
+					cl={styles.list_wrapper} show={btn => (
+					<div cl={styles.title_wrapper}>
+						<div cl={styles.title}>Images</div>
+						{btn}
+					</div>
+				)}>
+					<ShowArray
+						cl={styles.list_container}
+						arr={this.#images}
+						map={images => images.map(
+							img => <UploaderImage img={img} selected={this.props.selected}/>
+						)}
+						load={<div>Loading...</div>}
+						empty={<div>No Images</div>}
+					/>
+					<button onclick={() => this.props.selected.clear()}>Clear Selection</button>
+					<div>
+						{this.#currentPage > 0 && <WaitButton onclick={() => this.#advancePage(-1)}>
+							Prev
+						</WaitButton>}
+						{this.#next && <WaitButton onclick={() => this.#advancePage( 1)}>
+							Next
+						</WaitButton>}
+					</div>
 					<div cl={styles.form_wrapper}>
-						<div cl={styles.form_title}>Images</div>
 						<input
 							required
 							multiple
@@ -38,37 +63,17 @@ export class Uploader extends Comp {
 										name.innerText = file.name;
 									},
 									onChange(progress) {
-										console.log(progress)
 										prog.value = progress;
 									}
 								})
 								this.re();
 							})}
 						/>
-						{btn}
 					</div>
-				)}>
 					<div id="uploadingContainer">
 						<div id="uploadingName"></div>
 						<progress max="100" value="0"
 							id="uploadingProgress"></progress>
-					</div>
-					<ShowArray
-						cl={styles.list_container}
-						arr={this.#images}
-						map={images => images.map(
-							img => <UploaderImage img={img}/>
-						)}
-						load={<div>Loading...</div>}
-						empty={<div>No Images</div>}
-					/>
-					<div>
-						<WaitButton onclick={() => this.#advancePage(-1)}>
-							Prev
-						</WaitButton>
-						<WaitButton onclick={() => this.#advancePage( 1)}>
-							Next
-						</WaitButton>
 					</div>
 				</Accordion>
 			</div>

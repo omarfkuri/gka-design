@@ -12,7 +12,7 @@ export class SectionImage extends Comp<{
 	  	<div cl={styles.wrapper}>
 	  		{this.props.src.startsWith("https://")
 	  			? <img src={this.props.src}/>
-	  			: "Loading"
+	  			: ph._("loading")
 	  		}
 			</div>
 		)

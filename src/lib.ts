@@ -1,17 +1,29 @@
+
 export { Router, Anchor, View } from "@dunes/router";
 export { Elem, Comp } from "@dunes/tag";
 export { Fire, FireAuth, FireStorage, FireData } from "@dunes/fire";
+export { Form } from "@dunes/comps"
+
 
 declare global {
 	
 	type View = import("@dunes/router").View;
 	const {Router, Anchor, View}: typeof import("@dunes/router");
+	const { Form }: typeof import("@dunes/comps")
+	type FormStyles = import("@dunes/comps").FormStyles
 	
 	const {Fire}: typeof import("@dunes/fire");
+	const ph: import("src/fn/Words").Phrases<
+		typeof import("src/fn/lang").lang
+	>;
+	const Phrases: typeof import("src/fn/Words").Phrases
 	
 	type Elem<T extends TagName = any> = import("@dunes/tag").Elem<T>;
 	type Comp<T extends obj = any> = import("@dunes/tag").Comp<T>;
 	const {Elem, Comp}: typeof import("@dunes/tag");
+
+	const {include}: typeof import("@dunes/wrap-plug");
+
 	const paths: string[]
 	const hash: null | string
 

@@ -1,26 +1,67 @@
 
+body {
+	.bg(#FFF, #222);
+}
+
 #app {
 	height: 100%;
-	display: flex;
-	flex-direction: column;
-	gap: 5em;
+	.col();
+	position: relative;
+	max-width: unset;
+}
+
+.lang_btn {
+	position: fixed;
+	inset: auto auto 1em 1em;
+	z-index: 9;
+}
+
+.bg {
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+
+	.bgi(
+		radial-gradient(circle at 50% 70%, #FFF7, #FFF 90%),
+		url("/fondo.png"),
+		radial-gradient(circle at 50% 70%, #3337, #222 90%), 
+		url("/fondo.png")
+	);
+}
+@media (prefers-color-scheme: dark) {
+
+	img[src$=".svg"] {
+		filter: invert(100%);
+	}
 }
 
 .section_wrapper {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
 	width: 100%;
-	padding-inline: 0.7em;
-	min-height: 70vh;
-	gap: 0.3em;
+	height: 100%;
+	padding: @block @inline;
+	background: canvas;
+
+	.section_content {
+		.col(flex-start, start);
+		gap: 0.3em;
+		width: 100%;
+		max-width: 1200px;
+		margin-inline: auto;
+
+	}
 }
 
 .hero {
 	&_wrapper {
-		display: flex;
-		
+		background: unset;
+		.section_content {
+			justify-content: center;
+			align-items: center;
+			min-height: calc(100vh - @block * 2);
+		}
 	}
 
 	&_logo {
@@ -39,37 +80,65 @@
 
 .about {
 	&_wrapper {
-		display: flex;
+		// .bgi(
+		// 	linear-gradient(170deg, 
+		// 		hsl(142, 30%, 54%) 55%, hsl(166, 50%, 39%)
+		// 	),
+		// 	linear-gradient(170deg, 
+		// 		hsl(150, 40%, 33%), hsl(166, 40%, 34%)
+		// 	),
+		// );
+
+		.bg(hsl(120, 5%, 85%), hsl(146, 5%, 26%));
+
+		.section_content {
+			min-height: unset;
+		}
 	}
-	._title(@h2);
-	&_info {}
+	
+	._title(@mega, uppercase);
+
+	&_info {
+		font-size: @big;
+		text-align: justify;
+	}
+
+	&_down {
+		width: 100%;
+		.row(center);
+	}
 }
 
 
 .projects {
 	&_wrapper {
-		width: 100%;
-		// min-height: 60vh;
-
+		.section_content {
+			width: 100%;
+		}
 	}
-	._title(@h2);
-	&_info {}
+	._title(@mega, uppercase);
+
+	&_info {
+		width: 100%;
+		.row(flex-end, center)
+	}
 
 	&_link {
-		width: 100%;
-		text-align: right;
-		._title(@h3);
+		.title(@mega);
 	}
 }
 
 .contact {
 	&_wrapper {
-		width: 100%;
+		.bg(hsl(120, 5%, 85%), hsl(146, 5%, 26%));
+		.section_content {
+			width: 100%;
 
-		min-height: unset;
-		padding-bottom: 3.2em;
+			min-height: unset;
+			padding-bottom: 3.2em;
+		}
 	}
-	._title(@h2);
+	._title(@mega, uppercase);
 	&_body_wrapper {
 		display: flex;
 		width: 100%;
@@ -88,6 +157,7 @@
 
 
 		&_link {
+			white-space: nowrap;
 		}
 	}
 }

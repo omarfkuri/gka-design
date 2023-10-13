@@ -3,12 +3,13 @@
 
 import { TopBar } from "../TopBar"
 
-export function Wrapper({desc}: {
+export function Wrapper({desc, projects}: {
 	desc: any
+	projects?: boolean
 }) {
 	return (
 		<div id="app">
-			<TopBar></TopBar>
+			<TopBar projects={projects}></TopBar>
 			{desc}
 		</div>
 	)

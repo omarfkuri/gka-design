@@ -12,8 +12,12 @@ export class SectionPreview extends Comp<{
 	override produce() {
 		return (
 			<div cl={styles.wrapper}>
-				<h2>{this.props.section.name}</h2>
-				<p>{this.props.section.description}</p>
+				{this.props.section.name.trim() && 
+					<h2 cl={styles.name_container}>{this.props.section.name}</h2>
+				}
+				{this.props.section.description.trim() && 
+					<div cl={styles.description_container}>{this.props.section.description}</div>
+				}
 				<div cl={styles.images_list}>
 					{
 						this.props.section.images.length
@@ -27,7 +31,7 @@ export class SectionPreview extends Comp<{
 									/>
 								)}
 							/>
-						: <div>No Images</div>
+						: <div>{ph._("no_images")}</div>
 					}
 				</div>	
 			</div>

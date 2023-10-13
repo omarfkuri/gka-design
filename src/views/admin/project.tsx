@@ -19,6 +19,8 @@ export default class ProjectView extends View {
 	#project?: Doc<Project>
 	#sections?: Doc<Section>[]
 
+	selected = new Set<string>();
+
 	content({view}: {view: ProjectView}) {
 		
 		return (
@@ -47,13 +49,13 @@ export default class ProjectView extends View {
 						await router.reloadCurrent();
 					})}
 				>Add Section</WaitButton>,
-				<Uploader/>
+				<Uploader selected={view.selected}/>
 			]}>
 				<div cl={styles.list_wrapper}>
 					{view.#sections
 						? view.#sections.length
 							? view.#sections.map(section => 
-								<AdminSectionPreview section={section} projID={view.#project!.id!}/>
+								<AdminSectionPreview selected={view.selected} section={section} projID={view.#project!.id!}/>
 							)
 							: <div>No sections</div>
 						: <div>Loading...</div>

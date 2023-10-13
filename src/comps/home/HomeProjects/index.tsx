@@ -18,8 +18,8 @@ export class HomeProjects extends Comp {
 						<ProjectSlide project={project}/>
 					)}></ImgSlider>
 				}
-				load={<div>Loading...</div>}
-				empty={<div>None</div>}
+				load={<div>{ph._("loading")}</div>}
+				empty={<div>{ph._("no_projects")}</div>}
 			/>
 		)
 	}
@@ -59,7 +59,7 @@ class ProjectSlide extends  Comp<{project: Doc<Project>}> {
 							cl={styles.slide_cover} 
 							src={this.#url} 
 							draggable={false}/>
-					: <div>Loading...</div>	
+					: <div>{ph._("loading")}</div>	
 				)}
 				<div cl={styles.slide_title}>{this.props.project.name}</div>
 			</div>
