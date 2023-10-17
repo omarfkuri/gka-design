@@ -14,6 +14,16 @@ export const lang = {
 		es: "Admin"
 	},
 
+	related: {
+		en: "Related",
+		es: "Relacionados"
+	},
+
+	no_related: {
+		en: "Nothing to show",
+		es: "Nada que mostrar"
+	},
+
 	about: {
 		en: "About",
 		es: "Acerca de"

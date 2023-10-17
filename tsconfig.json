@@ -35,5 +35,6 @@
     "noUncheckedIndexedAccess": true,  
     "noImplicitOverride": true,  
     "skipLibCheck": true,
+    "checkJs": true
   }
 }

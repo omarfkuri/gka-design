@@ -1,14 +1,15 @@
 import type { Doc } from "@dunes/fire";
-import type { Comp } from "@dunes/tag";
 import styles from "src/style/views/project/index.m.less";
 import { SectionPreview } from "src/comps/home/SectionPreview";
 import { Wrapper } from "src/comps/home/Wrapper";
 import { ShowArray } from "src/comps/common/ShowArray";
+import { RecommendedProject } from "src/comps/home/RecommendedProject";
 
 export default class ProjectView extends View {
 	
 	#project?: Doc<Project>
 	#sections?: Doc<Section>[]
+	#recommended?: Doc<Project>[]
 
 	content({view}: {view: ProjectView}) {
 		
@@ -27,12 +28,24 @@ export default class ProjectView extends View {
 								section={section} 
 								projID={view.#project!.id!}/>
 						)}
-						load={<div>No sections</div>}
-						empty={<div>Loading...</div>}
+						load={<div>{ph._("no_related")}</div>}
+						empty={<div>{ph._("loading")}</div>}
 					/>
+					<div cl={styles.recommended_wrapper}>
+						<div cl={styles.recommended_title}>{ph._("related")}</div>
+						<ShowArray
+							cl={styles.recommended_container}
+							arr={view.#recommended}
+							map={recommended => recommended.map(proj =>
+								<RecommendedProject project={proj}/>
+							)}
+							load={<div>{ph._("no_related")}</div>}
+							empty={<div>{ph._("loading")}</div>}
+						/>
+					</div>
 				</Wrapper>
 			)
-			: <Wrapper>Loading...</Wrapper>
+			: <Wrapper>{ph._("loading")}</Wrapper>
 		)
 	}
 
@@ -47,6 +60,13 @@ export default class ProjectView extends View {
 				return {to: "/admin"}
 			}
 			this.#project	= proj;
+			re = true;
+		}
+
+		if (!this.#recommended) {
+			this.#recommended = await Promise.all(this.#project.related.map(
+				id => Fire.data.get<Project>(Fire.data.doc(`projects`, id))
+			)) as Doc<Project>[]
 			re = true;
 		}
 

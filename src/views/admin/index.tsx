@@ -48,6 +48,7 @@ export default class Admin extends View {
 										createdAt: Fire.data.stamp(),
 										updatedAt: Fire.data.stamp(),
 										cover: view.#cover,
+										related: []
 									}
 								);
 								view.#name = "";
@@ -104,6 +105,7 @@ export default class Admin extends View {
 				<Uploader selected={new Set()}/>
 			]}>
 				<ShowArray
+					cl={styles.list_wrapper}
 					arr={view.#projects}
 					map={projects => projects.map(project => 
 								<ProjectPreview project={project}/>

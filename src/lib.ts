@@ -22,8 +22,6 @@ declare global {
 	type Comp<T extends {[key: string]: any} = any> = import("@dunes/tag").Comp<T>;
 	const {Elem, Comp}: typeof import("@dunes/tag");
 
-	const {include}: typeof import("@dunes/wrap-plug");
-
 	const paths: string[]
 	const hash: null | string
 
@@ -32,6 +30,8 @@ declare global {
 		name: string
 		description: string
 		cover: string
+
+		related: string[]
 	}
 
 	type Message = {

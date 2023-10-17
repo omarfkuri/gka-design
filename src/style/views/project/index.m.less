@@ -18,3 +18,18 @@
 	padding-bottom: 26vh;
 	padding: 0 @inline (@block/2);
 }
+
+.recommended {
+	&_wrapper {
+		.col();
+		padding: @inline;
+		gap: 0.3em;
+	}
+
+	._title(@h2);
+
+	&_container {
+		.row();
+		gap: 0.5em;
+	}
+}

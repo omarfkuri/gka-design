@@ -8,7 +8,7 @@ export function html(e: HTMLFunctionEvent): string {
 	.replace(/^views/, "")
 	.replace(/(\.\w+)+$/, "")
 	.replace(/\/index$/, "")
-	const localCssPath = `${p}/styles.css`
+	const localCssPath = e.builder.hash(`${p}/styles.css`)
 
 	return String(
 		<html lang="en">

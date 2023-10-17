@@ -5,7 +5,20 @@
 }
 
 .list_wrapper {
-	.col();
+
+	display: grid;
+	grid-template-columns: repeat(3, 2fr);
+
+	@media (max-width: 800px) {
+		grid-template-columns: repeat(2, 2fr);
+	}
+	@media (max-width: 600px) {
+		grid-template-columns: repeat(1, 2fr);
+	}
+
+	// grid-auto-columns: repeat(3, 2fr);
+  // grid-auto-rows: minmax(100px, auto);
+
 	gap: 0.5em;
 	padding: 0.5em;
 }

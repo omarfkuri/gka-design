@@ -2,7 +2,7 @@
 import type { Doc } from "@dunes/fire"
 import styles from "./style.m.less"
 
-export class ProjectPreview extends Comp<{
+export class RecommendedProject extends Comp<{
 	project: Doc<Project>
 }> {
 

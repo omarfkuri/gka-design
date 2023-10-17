@@ -1,9 +1,10 @@
 import { word } from "@dunes/random"
+import { UNICODE } from "@dunes/tools"
 
 import styles from "./style.m.less"
 
-const arrow_left = include(import("@dunes/tools"), ({UNICODE}) => UNICODE.arrow.left.simple)
-const arrow_right = include(import("@dunes/tools"), ({UNICODE}) => UNICODE.arrow.right.simple)
+const arrow_left = UNICODE.arrow.left.simple
+const arrow_right = UNICODE.arrow.right.simple
 
 export function ImgSlider<T>({images, map}: {
 	images: T[]

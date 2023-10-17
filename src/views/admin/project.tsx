@@ -49,6 +49,21 @@ export default class ProjectView extends View {
 						await router.reloadCurrent();
 					})}
 				>Add Section</WaitButton>,
+				<WaitButton onclick={async () => {
+					const link = prompt("What image?");
+					if (!link) return;
+
+					try {
+						await Fire.data.update<Project>(
+							Fire.data.doc(`projects`, view.#project!.id),
+							{ cover: link }
+						)
+						view.comp!.re();
+					}
+					catch (error) {
+						alert(error);
+					}
+				}}>Set Cover</WaitButton>,
 				<Uploader selected={view.selected}/>
 			]}>
 				<div cl={styles.list_wrapper}>

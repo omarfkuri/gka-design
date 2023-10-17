@@ -1,34 +1,15 @@
-import { join, resolve } from "path";
-
+import { resolve } from "path";
 import less from "less"
-import nodeResolve from '@rollup/plugin-node-resolve';
 
 import { c, serve } from "@dunes/sys";
 import { SiteBuilder } from "@dunes/site";
+import { localResolve, } from "@dunes/bundle";
 import { Fire, FireData } from "@dunes/fire";
-import { jsxPreset, tsPreset } from '@dunes/bab';
-import { localResolve, ResolveOptions, transformInclude} from '@dunes/wrap-plug';
-
-const resolveOpts: ResolveOptions = {
-  keeps: new Set,
-  id: "script.ts",
-  parseOptions: {
-    sourceType: "module",
-    plugins: [ "typescript", "jsx", "destructuringPrivate" ]
-  },
-  transformOptions(filename) {
-    return {
-      filename,
-      presets: [
-        jsxPreset({ pragma: "Elem.create" }),
-        tsPreset({}),
-      ]
-    }
-  }
-}
+import { word } from "@dunes/random";
 
 const builder = new SiteBuilder({
   out: "public",
+  hash: word(14),
   assets: { source: "assets" },
   css: {
   	match: /\.less$/,
@@ -44,23 +25,17 @@ const builder = new SiteBuilder({
 		  return css;
 		},
   },
-  wrap: {
-    replaceAfter: [
-      [/let \w+\$\d+ = /g, ""],
-      [
-        /(Router|Comp|Fire|Elem|FireAuth|FireStore)\$\d+/g, 
-        (_str, name) => name
-      ]
-    ],
-
-    transform: [
-      transformInclude(resolveOpts)
-    ],
-
-    plugs: [
-      nodeResolve(),
-      localResolve(resolveOpts),
-    ]
+  bundle: {
+    jsx: {
+      pragma: "Elem.create"
+    },
+    onParse: localResolve,
+    onConclude(code) {
+      return code
+      .replace(/let \w+\$\d+ = /g, "")
+      .replace(/(Router|Comp|Fire|Elem|FireAuth|FireStore)\$\d+/g,
+        (_str, name) => name)
+    },
   }
 })
 
@@ -88,15 +63,15 @@ try {
     assign(app) {
       app.get("/*", (req, res) => {
         if (req.url.match(/\.\w+$/)) {
-          res.sendFile(resolve(join("public", req.url)))
+          res.sendFile(resolve(builder.out(req.url)));
         }
         else {
-          res.sendFile(resolve(join("public", "index.html"))) 
+          res.sendFile(resolve(builder.out("index.html")));
         }
       })
     }
   })
-  c.gray.log("Listening at " + c.blueLi(String(3001)));
+  c.gray.log(`Listening at ${c.blueLi(String(3001))}`);
   io.on("connection", socket => socket.emit("start", latest))
   
   // Produce
