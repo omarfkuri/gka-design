@@ -42,30 +42,34 @@ export default class Home extends View {
 						<div cl={styles.projects_title}>{ph._("projects")}</div>
 						<HomeProjects/>
 						<div cl={styles.projects_info}>
-							<a href="/project/list" cl={styles.projects_link}>{ph._("view_all")}</a>
+							<Anchor href="/project/list" cl={styles.projects_link}>{ph._("view_all")}</Anchor>
 						</div>
 					</div>
 				</section>
 				<section id="contact" cl={`${styles.section_wrapper} ${styles.contact_wrapper}`}>
 					<div cl={styles.section_content}>
-						<div cl={styles.contact_title}>{ph._("contact")}</div>
 						<div cl={styles.contact_body_wrapper}>
-							<div cl={styles.contact_info_wrapper}>
-								<a href="tel:+525514608144">
-									<img cl={styles.contact_info_icon} src="/phone.svg" alt="Phone icon"/>
-								</a>
-								<a href="mailto:gka.design.adm@gmail.com">
-									<img cl={styles.contact_info_icon} src="/mail.svg" alt="Email icon"/>
-								</a>
-								<a href="https://www.instagram.com/gka_architecture/">
-									<img cl={styles.contact_info_icon} src="/instagram.png" alt="Instagram icon"/>
-								</a>
-								<a href="#fb">
-									<img cl={styles.contact_info_icon} src="/facebook.png" alt="Facebook icon"/>
-								</a>
+							<div cl={styles.contact_logo}>
+								<img src="/logo.svg" draggable={false}/>
 							</div>
-							<div cl={styles.contact_message_wrapper}>
-								<MessageForm messagesRef={messagesRef}/>
+							<div cl={styles.contact_info_wrapper}>
+								<div cl={styles.contact_info_message}>
+									<MessageForm messagesRef={messagesRef}/>
+								</div>
+								<div cl={styles.contact_info_links}>
+									<a href="tel:+525514608144">
+										<img cl={styles.contact_info_icon} src="/phone.svg" alt="Phone icon"/>
+									</a>
+									<a href="mailto:gka.design.adm@gmail.com">
+										<img cl={styles.contact_info_icon} src="/mail.svg" alt="Email icon"/>
+									</a>
+									<a href="https://www.instagram.com/gka_architecture/">
+										<img cl={styles.contact_info_icon} src="/instagram.png" alt="Instagram icon"/>
+									</a>
+									<a href="#fb">
+										<img cl={styles.contact_info_icon} src="/facebook.png" alt="Facebook icon"/>
+									</a>
+								</div>
 							</div>
 						</div>
 					</div>

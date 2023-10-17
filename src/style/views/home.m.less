@@ -147,14 +147,23 @@ body {
 		display: flex;
 		width: 100%;
 	}
-
-	&_message_wrapper {
-		width: 100%;
-	}
 	
+	&_logo {
+		font-size: 2.2em;
+		font-weight: bold;
+		width: 100%;
+
+		img {
+			width: 50%;
+		}
+	}
 	&_info {
 		&_wrapper {
-			display: flex;
+			.col();
+			gap: 0.4em;
+		}
+		&_links {
+			.row();
 			gap: 0.4em;
 		}
 
@@ -166,6 +175,10 @@ body {
 
 		&_icon {
 			width: 24px;
+		}
+
+		&_wrapper {
+			width: 100%;
 		}
 	}
 }

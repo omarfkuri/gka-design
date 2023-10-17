@@ -84,7 +84,7 @@ export default async function () {
 		},
 
 		produce: {
-			inactive: true,
+			// inactive: true,
 	    origin: "http://localhost:3001",
 	    do: {
 	      async '/project/index'(path) {
@@ -136,6 +136,7 @@ export default async function () {
 		},
 
 		watch: {
+			inactive: true,
 	    
 	    onStart() {
 			  c.gray.log("watching...");

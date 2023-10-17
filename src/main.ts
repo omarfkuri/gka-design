@@ -1,7 +1,7 @@
 
 import "src/globals.less"
 import { Phrases } from "@dunes/phrase";
-import { reloader } from "@dunes/reloader";
+// import { reloader } from "@dunes/reloader";
 
 import { lang } from "src/fn/lang";
 
@@ -31,7 +31,7 @@ const router = new Router({
 	pages: paths,
 	views: {
 		home: "",
-		error: "not-found",
+		error: "404",
 		folder: "/views",
 	},
 	root: "#app",
@@ -51,8 +51,9 @@ const router = new Router({
 	}
 });
 
-reloader()
-.then(() => Fire.auth.self.authStateReady())
+Fire.auth.self.authStateReady()
+// reloader()
+// .then(() => Fire.auth.self.authStateReady())
 .then(()=> router.start())
 .then(() => console.log("Started app!"))
 .catch(alert)
