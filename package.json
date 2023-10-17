@@ -5,8 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "ts-node entry",
-    "test": "builder build.js"
+    "build": "builder"
   },
   "dependencies": {
     "@babel/preset-react": "^7.22.15",

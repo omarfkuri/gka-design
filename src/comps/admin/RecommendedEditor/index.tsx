@@ -32,9 +32,6 @@ export class RecommendedEditor extends Comp<{
 						{id}
 						<WaitButton
 							onclick={async () => {
-							const id = prompt("What image?");
-							if (!id) return;
-
 							try {
 								const related = this.props.related.filter(rID => rID !== id);
 								await Fire.data.update<Project>(

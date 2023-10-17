@@ -7,7 +7,6 @@ body {
 	height: 100%;
 	.col();
 	position: relative;
-	max-width: unset;
 }
 
 .lang_btn {
@@ -115,12 +114,17 @@ body {
 		.section_content {
 			width: 100%;
 		}
+		height: unset;
+
+		img {
+			max-height: 55vh;
+		}
 	}
 	._title(@mega, uppercase);
 
 	&_info {
 		width: 100%;
-		.row(flex-end, center)
+		.row(flex-end, center);
 	}
 
 	&_link {
@@ -151,13 +155,17 @@ body {
 	&_info {
 		&_wrapper {
 			display: flex;
-			flex-direction: column;
-
+			gap: 0.4em;
 		}
 
 
 		&_link {
 			white-space: nowrap;
+		}
+
+
+		&_icon {
+			width: 24px;
 		}
 	}
 }

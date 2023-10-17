@@ -51,8 +51,18 @@ export default class Home extends View {
 						<div cl={styles.contact_title}>{ph._("contact")}</div>
 						<div cl={styles.contact_body_wrapper}>
 							<div cl={styles.contact_info_wrapper}>
-								<a cl={styles.contact_info_link}>Email</a>
-								<a cl={styles.contact_info_link}>55 5050 2038</a>
+								<a href="tel:+525514608144">
+									<img cl={styles.contact_info_icon} src="/phone.svg" alt="Phone icon"/>
+								</a>
+								<a href="mailto:gka.design.adm@gmail.com">
+									<img cl={styles.contact_info_icon} src="/mail.svg" alt="Email icon"/>
+								</a>
+								<a href="https://www.instagram.com/gka_architecture/">
+									<img cl={styles.contact_info_icon} src="/instagram.png" alt="Instagram icon"/>
+								</a>
+								<a href="#fb">
+									<img cl={styles.contact_info_icon} src="/facebook.png" alt="Facebook icon"/>
+								</a>
 							</div>
 							<div cl={styles.contact_message_wrapper}>
 								<MessageForm messagesRef={messagesRef}/>
